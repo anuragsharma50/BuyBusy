@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+.heading {
+    margin: 8px;
+    font-weight: 500;
+    font-style: italic;
+    color: #014169;
+}
+
+.subHeading {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 8px;
+}
+
+.tinput {
+    width: 380px;
+    padding: 12px;
+    font-size: 13px;
+    background-color: #ededed;
+    border: none;
+    border-radius: 8px;
+    margin: 8px 0px 24px;
+}
+
+.btn {
+    width: 380px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background-color: #014169;
+    color: white;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.signupLink {
+    margin-top: 12px;
+}
+
+a {
+    font-weight: bold;
+}

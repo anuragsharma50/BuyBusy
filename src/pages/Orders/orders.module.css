@@ -1,0 +1,19 @@
+
+th {
+    border-bottom: 2px solid;
+}
+
+td {
+    padding: 8px 32px;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order {
+    margin-bottom: 16px;
+}
