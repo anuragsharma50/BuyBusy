@@ -1,10 +1,22 @@
-import { useCartContext } from "../../ItemsProvider";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./orders.module.css";
+import { getInitialOrderState, orderSelector } from "../../redux/reducers/orderReducer";
+import { authSelector } from "../../redux/reducers/AuthReducer";
+import { useEffect } from "react";
 
 const Orders = () => {
 
-    const {orders} = useCartContext();
+    const {orders} = useSelector(orderSelector);
+    const {user} = useSelector(authSelector);
+    const dispatch = useDispatch();
+
+    // dispatching action for fetching orders from DB
+    useEffect(() => {
+        if(user.id){
+            dispatch(getInitialOrderState({userId: user.id}));
+        }
+    },[user,dispatch]);
 
     return (
         <div>

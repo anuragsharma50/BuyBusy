@@ -3,11 +3,12 @@ import styles from "./register.module.css";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
-import { useAuthContext } from "../../AuthProvider.jsx";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../redux/reducers/AuthReducer.js";
 
 const Register = () => {
 
-    const {setUser} = useAuthContext();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [userData,setUserData] = useState({name:"",email:"",password:""});
@@ -34,8 +35,7 @@ const Register = () => {
             // Signed up 
             console.log("Registered");
             console.log(userCredential);
-            // const user = userCredential.user;
-            setUser({email:userCredential.user.email,id:userCredential.user.uid});
+            dispatch(authActions.addInitialState({email:userCredential.user.email,id:userCredential.user.uid}));
             setUserData({name:"",email:"",password:""});
             navigate("/");
         })

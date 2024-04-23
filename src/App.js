@@ -9,10 +9,11 @@ import "./firebaseInit.js";
 import './App.css';
 import Home from './pages/Home/Home';
 import Nav from "./Components/Nav/Nav";
-import { ItemsProvider } from "./ItemsProvider";
-import { AuthProvider } from "./AuthProvider";
+import { store } from "./redux/store.js";
+import { Provider } from "react-redux";
 
 function App() {
+
   const router = createBrowserRouter([
     { path: "/", element: <Nav /> , children: [
       { index:true, element: <Home /> },
@@ -25,11 +26,9 @@ function App() {
 
   return (
     <div>
-      <AuthProvider>
-        <ItemsProvider>
-          <RouterProvider router={router} />
-        </ItemsProvider>
-      </AuthProvider>
+      <Provider store={store} >
+        <RouterProvider router={router} />
+      </Provider>
     </div>
   );
 }

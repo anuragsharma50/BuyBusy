@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./home.module.css";
-import { useCartContext } from "../../ItemsProvider";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../AuthProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "../../redux/reducers/AuthReducer";
+import { addItemToDB, cartSelector, updateItemToDB } from "../../redux/reducers/cartReducer";
 
 const Home = () => {
 
-    const {addItemToCart} = useCartContext();
-    const {user} = useAuthContext();
+    const {user} = useSelector(authSelector);
+
+    const dispatch = useDispatch();
+    const {cart} = useSelector(cartSelector);
 
     const [data,setData] = useState([]);
     const [filtered,setFiltered] = useState([]);
@@ -31,6 +34,20 @@ const Home = () => {
 
         getData();      
     },[])
+
+    const addItemToCart = async (item) => {
+        const index = cart.findIndex(c => c.id === item.id);
+        if(index === -1) {
+            item.quantity = 1;
+            console.log(user);
+            dispatch(addItemToDB({item,user}));
+        }
+        else{
+            let item = {...cart[index]}
+            item.quantity += 1;
+            dispatch(updateItemToDB({item,user,index}));
+        }
+    }
 
     const filter = ({text,price,categories}) => {
         if(text === undefined) {

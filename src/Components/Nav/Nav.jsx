@@ -1,20 +1,39 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import styles from "./nav.module.css";
-import { useAuthContext } from "../../AuthProvider";
+import "./nav.module.css";
 
 import { getAuth, signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions, authSelector, getInitialAuthState } from "../../redux/reducers/AuthReducer";
+import { getInitialCartState } from "../../redux/reducers/cartReducer";
+import { useEffect } from "react";
 
 const Nav = () => {
-
-    const {user,setUser} = useAuthContext();
+    
     const navigate = useNavigate();
 
+    const {user} = useSelector(authSelector);
+    const dispatch = useDispatch();
+
+    // fetching cart and auth state here.
+    // fetching cart here as we are using it in both home and cart component
+    // fetching auth as we are using it everywhere
+    useEffect(() => {
+        console.log(user);
+        if(user.id){
+            dispatch(getInitialCartState({userId: user.id}));
+        }
+        else{
+            dispatch(getInitialAuthState());
+        }
+    },[user,dispatch]);
+
+    // dispatching logout action and naving user to homepage
     const logOut = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
           // Sign-out successful.
           console.log("Sign-out successful");
-          setUser({});
+          dispatch(authActions.logout()); 
           navigate("/");
         }).catch((error) => {
           // An error happened.

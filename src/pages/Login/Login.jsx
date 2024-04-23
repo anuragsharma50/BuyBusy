@@ -2,11 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./login.module.css";
 import { useState } from "react";
-import { useAuthContext } from "../../AuthProvider";
+import { useDispatch, } from "react-redux";
+import { authActions } from "../../redux/reducers/AuthReducer";
 
 const Login = () => {
 
-    const {setUser} = useAuthContext();
+    const dispath = useDispatch();
     const navigate = useNavigate();
 
     const [userData,setUserData] = useState({email:"",password:""});
@@ -33,8 +34,7 @@ const Login = () => {
             // Signed up 
             console.log("Registered");
             console.log(userCredential);
-            // const user = userCredential.user;
-            setUser({email:userCredential.user.email,id:userCredential.user.uid});
+            dispath(authActions.addInitialState({email:userCredential.user.email,id:userCredential.user.uid}));
             setUserData({name:"",email:"",password:""});
             navigate("/");
         })
