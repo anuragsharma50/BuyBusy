@@ -1,6 +1,14 @@
 # BuyBusy
 
-Small E-commerce web-app build with React with Context API and Firebase.
+Small E-commerce web-app build with React with Redux Toolkit and Firebase.
+Converted from Context API to Redux toolkit
+
+### Redux Tooltik features used
+- Thunk API => to perform async operations to fetch,add, update and delete data to firebase
+- Extra reducers => to update state based on thunk API's returned data.
+- useDispatch and useSelector hook from React-redux
+- Middleware to log actions performed.
+
 
 ## Screenshots
 ![image](https://github.com/anuragsharma50/BuyBusy/assets/59228106/e728c5b0-2555-4e4c-bc26-915cf782ed38)
